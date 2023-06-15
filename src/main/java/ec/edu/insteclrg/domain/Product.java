@@ -25,4 +25,4 @@ public class Product {
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "category_id")
 	private Category category;
-}
+	}
