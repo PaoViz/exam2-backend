@@ -66,14 +66,15 @@ public class CategoryController {
 	}
 	// Completar
 	
-	@DeleteMapping(path = "/{id}/eliminar")
-	public ResponseEntity<Object> eliminar(@PathVariable Long id){
+	@DeleteMapping(path = "{id}")
+	public ResponseEntity<Object> eliminar(@PathVariable Long id) {
 		CategoriaDTO dto = new CategoriaDTO();
 		dto.setId(id);
-		Optional<Category> domain = service.find(dto);
-		if (!domain.isEmpty()) {
+		Optional<Category> categoryOptional = service.find(dto);
+	
+		if(categoryOptional.isPresent()) {
 			service.delete(dto);
-			return new ResponseEntity<>(new ApiResponseDTO<>(true, dto), HttpStatus.OK);
+			return new ResponseEntity<>(new ApiResponseDTO<>(true, null), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(new ApiResponseDTO<>(false, null), HttpStatus.NOT_FOUND);
 		}
